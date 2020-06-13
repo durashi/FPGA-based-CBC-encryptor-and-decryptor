@@ -34,56 +34,18 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity register_8bit is
     Port ( data_in : in STD_LOGIC_VECTOR (7 downto 0);
            data_out : out STD_LOGIC_VECTOR (7 downto 0);
-           clk : in STD_LOGIC);
+           clk, reset : in STD_LOGIC);
 end register_8bit;
 
 architecture Behavioral of register_8bit is
 
-component d_flipflop
-    port(data_in : in std_logic;
-         clk : in std_logic;
-         data_out : out std_logic);
-    end component;
-
 begin
-d_flipflop_0 : d_flipflop
-    port map (data_in => data_in(0),
-              data_out => data_out(0),
-              clk => clk);
-              
-d_flipflop_1 : d_flipflop
-    port map (data_in => data_in(1),
-              data_out => data_out(1),
-              clk => clk);
-              
-d_flipflop_2 : d_flipflop
-    port map (data_in => data_in(2),
-              data_out => data_out(2),
-              clk => clk);
-              
-d_flipflop_3 : d_flipflop
-    port map (data_in => data_in(3),
-              data_out => data_out(3),
-              clk => clk);
-              
-d_flipflop_4 : d_flipflop
-    port map (data_in => data_in(4),
-              data_out => data_out(4),
-              clk => clk);
-              
-d_flipflop_5 : d_flipflop
-    port map (data_in => data_in(5),
-              data_out => data_out(5),
-              clk => clk);
-              
-d_flipflop_6 : d_flipflop
-    port map (data_in => data_in(6),
-              data_out => data_out(6),
-              clk => clk);
-              
-d_flipflop_7 : d_flipflop
-    port map (data_in => data_in(7),
-              data_out => data_out(7),
-              clk => clk);
-
+    process(clk, reset)
+    begin
+        if reset = '1' then
+            data_out <= "00000000";
+        elsif clk'event and clk = '1' then
+            data_out <= data_in;
+        end if;
+    end process;
 end Behavioral;
