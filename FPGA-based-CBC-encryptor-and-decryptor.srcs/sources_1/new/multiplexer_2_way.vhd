@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 05/04/2020 10:34:59 PM
+-- Create Date: 06/14/2020 12:33:01 AM
 -- Design Name: 
--- Module Name: register_8bit - Behavioral
+-- Module Name: multiplexer_2_way - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,21 +31,18 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity register_8bit is
-    Port ( data_in : in STD_LOGIC_VECTOR (7 downto 0);
+entity multiplexer_2_way is
+    Port ( a_in : in STD_LOGIC_VECTOR (7 downto 0);
+           b_in : in STD_LOGIC_VECTOR (7 downto 0);
            data_out : out STD_LOGIC_VECTOR (7 downto 0);
-           clk, reset : in STD_LOGIC);
-end register_8bit;
+           selector : in STD_LOGIC);
+end multiplexer_2_way;
 
-architecture Behavioral of register_8bit is
+architecture Behavioral of multiplexer_2_way is
 
 begin
-    process(clk, reset)
-    begin
-        if reset = '1' then
-            data_out <= "00000000";
-        elsif clk'event and clk = '1' then
-            data_out <= data_in;
-        end if;
-    end process;
+    with selector select
+        data_out <= a_in when '0',
+                    b_in when others;
+
 end Behavioral;
