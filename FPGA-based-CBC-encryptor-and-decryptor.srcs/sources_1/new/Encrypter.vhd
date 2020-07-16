@@ -4,7 +4,7 @@
 -- 
 -- Create Date: 06/13/2020 11:54:44 PM
 -- Design Name: 
--- Module Name: Encrypter_Decrypter - Behavioral
+-- Module Name: Encrypter - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,16 +31,16 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity Encrypter_Decrypter is
+entity Encrypter is
     Port ( key_in : in STD_LOGIC_VECTOR (7 downto 0);
            d_in : in STD_LOGIC_VECTOR (7 downto 0);
            d_out : out STD_LOGIC_VECTOR (7 downto 0);
            clock : in STD_LOGIC;
            reset : in STD_LOGIC;
            selector_mul : in STD_LOGIC);
-end Encrypter_Decrypter;
+end Encrypter;
 
-architecture Behavioral of Encrypter_Decrypter is
+architecture Behavioral of Encrypter is
 
 component xor_gate_8_bit
     Port ( a : in STD_LOGIC_VECTOR (7 downto 0);
