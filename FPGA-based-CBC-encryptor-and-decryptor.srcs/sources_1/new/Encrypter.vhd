@@ -72,7 +72,7 @@ signal input_xor_b : STD_LOGIC_VECTOR (7 downto 0);
 signal output_xor : STD_LOGIC_VECTOR (7 downto 0);
 signal xor_bit_swapper : STD_LOGIC_VECTOR (7 downto 0);
 signal bit_swapper_output : STD_LOGIC_VECTOR (7 downto 0);
-signal output_reg_out : STD_LOGIC_VECTOR (7 downto 0);
+--signal output_reg_out : STD_LOGIC_VECTOR (7 downto 0);
 
 begin
 
@@ -82,16 +82,21 @@ input_register : register_8bit
                clk  => clock,
                reset => reset);
 
-output_register : register_8bit
-    Port map ( data_in => bit_swapper_output,
-               data_out => output_reg_out,
-               clk  => clock,
-               reset => reset);
+--output_register : register_8bit
+--    Port map ( data_in => bit_swapper_output,
+--               data_out => output_reg_out,
+--               clk  => clock,
+--               reset => reset);
 
 xor_gate : xor_gate_8_bit
     port map (a => input_xor_a,
               b => input_xor_b,
               F => xor_bit_swapper);
+
+--bit_swap : bit_swapper
+--    port map (byte_in => xor_bit_swapper,
+--              Clk => clock,
+--              byte_out => bit_swapper_output);
 
 bit_swap : bit_swapper
     port map (byte_in => xor_bit_swapper,
@@ -100,9 +105,10 @@ bit_swap : bit_swapper
 
 multi_2_to_1 : multiplexer_2_way
     port map ( a_in => key_in,
-               b_in => output_reg_out,
+               b_in => bit_swapper_output,
                data_out => input_xor_b,
                selector => selector_mul);
 
-d_out <= output_reg_out;
+--d_out <= output_reg_out;
+d_out <= bit_swapper_output;
 end Behavioral;
