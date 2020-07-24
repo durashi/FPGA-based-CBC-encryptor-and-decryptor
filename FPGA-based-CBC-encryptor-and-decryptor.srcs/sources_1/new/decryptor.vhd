@@ -83,11 +83,11 @@ input_register : register_8bit
                clk  => clock,
                reset => reset);
 
-output_register : register_8bit
-    Port map ( data_in => output_xor,
-               data_out => output_reg_out,
-               clk  => clock,
-               reset => reset);
+--output_register : register_8bit
+--    Port map ( data_in => output_xor,
+--               data_out => output_reg_out,
+--               clk  => clock,
+--               reset => reset);
 
 xor_gate : xor_gate_8_bit
     port map (a => bit_swapper_output,
@@ -105,6 +105,6 @@ multi_2_to_1 : multiplexer_2_way
                data_out => input_xor_b,
                selector => selector);
 
-d_out <= output_reg_out;
+d_out <= output_xor;
 
 end Behavioral;
