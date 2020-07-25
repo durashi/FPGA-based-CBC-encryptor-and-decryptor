@@ -67,20 +67,40 @@ clock <= not clock after 10ns;
 
 stimuli : process
     begin
-        wait for 50ns;
-        key_in <= "00001111";
+--        wait for 50ns;
+--        key_in <= "00001111";
+--        reset <= '0';
+--        selector <= '0';
+--        d_in <= "11100100";
+--        wait for 30ns;
+--        reset <= '0';
+--        d_in <= "01000001";
+----        wait for 20ns;
+----        reset <= '1';
+--        wait for 20ns;
+--        d_in <= "01011010";
+--        wait for 100ns;
+--        selector <= '1';
+--        wait;
+        
+        key_in <= "11011110";
         reset <= '0';
         selector <= '0';
-        d_in <= "11100100";
-        wait for 30ns;
-        reset <= '0';
-        d_in <= "01000001";
---        wait for 20ns;
---        reset <= '1';
         wait for 20ns;
-        d_in <= "01011010";
-        wait for 100ns;
+        --reset <= '0';
+        d_in <= "11001100";
+        wait for 20 ns;
+        d_in <= "10001111";
+        wait for 10ns;
         selector <= '1';
+        wait for 10ns;
+        d_in <= "10011101";
+        wait for 20ns;
+        d_in <= "01011110";
+        wait for 20ns;
+        d_in <= "01001100";
+        wait for 20ns;
+        d_in <= "00001111";
         wait;
     end process;
 

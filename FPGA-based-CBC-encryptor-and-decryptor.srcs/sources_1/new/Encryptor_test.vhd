@@ -31,13 +31,13 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity Encryptor_Decryptor_test is
+entity Encryptor_test is
 --  Port ( );
-end Encryptor_Decryptor_test;
+end Encryptor_test;
 
-architecture Behavioral of Encryptor_Decryptor_test is
+architecture Behavioral of Encryptor_test is
 
-component Encrypter_Decrypter is
+component Encrypter is
     Port ( key_in : in STD_LOGIC_VECTOR (7 downto 0);
            d_in : in STD_LOGIC_VECTOR (7 downto 0);
            d_out : out STD_LOGIC_VECTOR (7 downto 0);
@@ -55,7 +55,7 @@ signal d_out : STD_LOGIC_VECTOR (7 downto 0);
 
 begin
 
-uut_1 : Encrypter_Decrypter
+uut_1 : Encrypter
     port map ( reset => reset,
                clock => clock,
                selector_mul => selector_mul,
@@ -67,17 +67,22 @@ clock <= not clock after 10ns;
 
 stimuli : process
     begin
-        key_in <= "00001111";
-        reset <= '1';
-        selector_mul <= '0';
-        d_in <= "01010101";
-        wait for 30ns;
+        key_in <= "11011110";
         reset <= '0';
-        d_in <= "01000001";
---        wait for 20ns;
---        reset <= '1';
+        selector_mul <= '0';
+        d_in <= "00010010";
+        wait for 20 ns;
+        d_in <= "00110100";
+        wait for 10ns;
+        selector_mul <= '1';
+        wait for 10ns;
+        d_in <= "01010110";
         wait for 20ns;
-        d_in <= "01111101";
+        d_in <= "01111000";
+        wait for 20ns;
+        d_in <= "10011010";
+        wait for 20ns;
+        d_in <= "10111100";
         wait;
     end process;
     

@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 04/28/2020 02:14:13 PM
+-- Create Date: 07/25/2020 08:53:02 AM
 -- Design Name: 
 -- Module Name: not_gate - Behavioral
 -- Project Name: 
@@ -32,13 +32,13 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity not_gate is
-    Port ( a : in STD_LOGIC;
-           b : out STD_LOGIC);
+    Port ( n_input : in STD_LOGIC;
+           n_output : out STD_LOGIC);
 end not_gate;
 
 architecture Behavioral of not_gate is
 
 begin
-b <= not a;
+n_output <= not n_input;
 
 end Behavioral;

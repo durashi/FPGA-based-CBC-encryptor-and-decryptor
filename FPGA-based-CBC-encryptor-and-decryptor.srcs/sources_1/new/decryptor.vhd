@@ -68,6 +68,14 @@ component multiplexer_2_way
            selector : in STD_LOGIC);
 end component;
 
+component not_gate
+    Port ( n_input : in STD_LOGIC;
+           n_output : out STD_LOGIC);
+end component;
+
+signal not_data_reg : STD_LOGIC;
+signal input_a_b : STD_LOGIC_VECTOR (7 downto 0);
+signal input_b_c : STD_LOGIC_VECTOR (7 downto 0);
 signal input_xor_a : STD_LOGIC_VECTOR (7 downto 0);
 signal input_xor_b : STD_LOGIC_VECTOR (7 downto 0);
 signal output_xor : STD_LOGIC_VECTOR (7 downto 0);
@@ -77,8 +85,24 @@ signal output_reg_out : STD_LOGIC_VECTOR (7 downto 0);
 
 begin
 
-input_register : register_8bit
+not_clock : not_gate
+    Port map ( n_input => clock,
+               n_output => not_data_reg);
+
+input_register_a : register_8bit
     Port map ( data_in => d_in,
+               data_out => input_a_b,
+               clk  => clock,
+               reset => reset);
+               
+input_register_b : register_8bit
+    Port map ( data_in => input_a_b,
+               data_out => input_b_c,
+               clk  => not_data_reg,
+               reset => reset);
+
+input_register_c : register_8bit
+    Port map ( data_in => input_b_c,
                data_out => xor_bit_swapper,
                clk  => clock,
                reset => reset);
@@ -95,7 +119,7 @@ xor_gate : xor_gate_8_bit
               F => output_xor);
 
 bit_swap : bit_swapper
-    port map (byte_in => xor_bit_swapper,
+    port map (byte_in => d_in,
               Clk => clock,
               byte_out => bit_swapper_output);
 
