@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 05/04/2020 10:34:59 PM
+-- Create Date: 07/26/2020 11:38:41 PM
 -- Design Name: 
--- Module Name: d_flipflop - Behavioral
+-- Module Name: down_counter - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -21,6 +21,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -31,22 +32,28 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity d_flipflop is
-    Port ( data_in : in STD_LOGIC;
-           data_out : out STD_LOGIC;
-           clk, reset : in STD_LOGIC);
-end d_flipflop;
+entity down_counter is
+    Port ( clock : in STD_LOGIC;
+           reset : in STD_LOGIC;
+           counter_out : out STD_LOGIC_VECTOR (7 downto 0));
+end down_counter;
 
-architecture Behavioral of d_flipflop is
-
+architecture Behavioral of down_counter is
+    signal count :  STD_LOGIC_VECTOR (7 downto 0) := "11111111";
+    
 begin
-process(clk, reset)
+    process (clock,reset)
     begin
         if reset = '1' then
-            data_out <= '0';
-        elsif clk'event and clk = '1' then
-            data_out <= data_in;
+            count <= "11111111";
+        elsif (clock 'event and clock = '1') then
+            if (count = "10000000") then
+                count <= "11111111";
+            else
+                count <= count - '1';
+            end if;
         end if;
     end process;
+    counter_out <= count;
 
 end Behavioral;

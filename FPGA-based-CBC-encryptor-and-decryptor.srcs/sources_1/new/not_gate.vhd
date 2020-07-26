@@ -32,13 +32,13 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity not_gate is
-    Port ( n_input : in STD_LOGIC;
-           n_output : out STD_LOGIC);
+    Port ( a : in STD_LOGIC;
+           b : out STD_LOGIC);
 end not_gate;
 
 architecture Behavioral of not_gate is
 
 begin
-n_output <= not n_input;
+b <= not a;
 
 end Behavioral;

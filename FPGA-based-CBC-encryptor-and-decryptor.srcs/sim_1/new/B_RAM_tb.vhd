@@ -19,7 +19,7 @@ architecture bench of B_RAM_wrapper_tb is
   end component;
 
   signal BRAM_PORTA_0_addr: STD_LOGIC_VECTOR ( 12 downto 0 );
-  signal BRAM_PORTA_0_clk: STD_LOGIC := '0';
+  signal BRAM_PORTA_0_clk: STD_LOGIC := '1';
   signal BRAM_PORTA_0_din: STD_LOGIC_VECTOR ( 7 downto 0 );
   signal BRAM_PORTA_0_dout: STD_LOGIC_VECTOR ( 7 downto 0 );
   signal BRAM_PORTA_0_en: STD_LOGIC;
@@ -44,19 +44,19 @@ begin
     BRAM_PORTA_0_din <= "01010101";
     BRAM_PORTA_0_en <= '1';
     BRAM_PORTA_0_we <= "1";
-    wait for 90ns;
+    wait for 20ns;
     
     BRAM_PORTA_0_addr <= "0000000001111";
     BRAM_PORTA_0_din <= "10101010";
     BRAM_PORTA_0_en <= '1';
     BRAM_PORTA_0_we <= "1";
-    wait for 90ns;
+    wait for 20ns;
     
     BRAM_PORTA_0_addr <= "0000000001111";
     BRAM_PORTA_0_din <= "00001111";
     BRAM_PORTA_0_en <= '1';
     BRAM_PORTA_0_we <= "1";
-    wait for 90ns;
+    wait for 20ns;
     
     BRAM_PORTA_0_addr <= "0000000001111";
     BRAM_PORTA_0_din <= "11110000";

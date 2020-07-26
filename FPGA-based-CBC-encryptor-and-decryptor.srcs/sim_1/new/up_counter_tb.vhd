@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 05/04/2020 10:34:59 PM
+-- Create Date: 07/26/2020 11:55:04 PM
 -- Design Name: 
--- Module Name: d_flipflop - Behavioral
+-- Module Name: up_counter_tb - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,22 +31,39 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity d_flipflop is
-    Port ( data_in : in STD_LOGIC;
-           data_out : out STD_LOGIC;
-           clk, reset : in STD_LOGIC);
-end d_flipflop;
+entity up_counter_tb is
+--  Port ( );
+end up_counter_tb;
 
-architecture Behavioral of d_flipflop is
+architecture Behavioral of up_counter_tb is
+
+component up_counter is
+    Port ( clock : in STD_LOGIC;
+           reset : in STD_LOGIC;
+           counter_out : out STD_LOGIC_VECTOR (7 downto 0));
+end component;
+
+signal clock : STD_LOGIC:= '1';
+signal reset : STD_LOGIC;
+signal counter_out : STD_LOGIC_VECTOR (7 downto 0);
 
 begin
-process(clk, reset)
+
+uut_1 : up_counter
+    port map ( clock => clock,
+               reset => reset,
+               counter_out => counter_out);
+
+clock <= not clock after 10ns;
+
+stimuli : process
     begin
-        if reset = '1' then
-            data_out <= '0';
-        elsif clk'event and clk = '1' then
-            data_out <= data_in;
-        end if;
+    reset <= '0';
+    wait for 160ns;
+    reset <= '1';
+    wait for 10ns;
+    reset <= '0';
+    wait;
     end process;
 
 end Behavioral;

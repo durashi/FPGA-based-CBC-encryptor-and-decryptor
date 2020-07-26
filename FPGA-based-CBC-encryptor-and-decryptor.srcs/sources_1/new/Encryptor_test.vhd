@@ -46,7 +46,7 @@ component Encrypter is
            selector_mul : in STD_LOGIC);
 end component;
 
-signal clock : STD_LOGIC := '0';
+signal clock : STD_LOGIC := '1';
 signal reset : STD_LOGIC;
 signal selector_mul : STD_LOGIC;
 signal key_in : STD_LOGIC_VECTOR (7 downto 0);
@@ -73,10 +73,11 @@ stimuli : process
         d_in <= "00010010";
         wait for 20 ns;
         d_in <= "00110100";
-        wait for 10ns;
-        selector_mul <= '1';
-        wait for 10ns;
+        --wait for 10ns;
+        --selector_mul <= '1';
+        wait for 20ns;
         d_in <= "01010110";
+        selector_mul <= '1';
         wait for 20ns;
         d_in <= "01111000";
         wait for 20ns;
