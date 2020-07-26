@@ -34,58 +34,19 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity d_flipflop is
     Port ( data_in : in STD_LOGIC;
            data_out : out STD_LOGIC;
-           clk : in STD_LOGIC);
+           clk, reset : in STD_LOGIC);
 end d_flipflop;
 
 architecture Behavioral of d_flipflop is
 
-component nand_gate
-    port(a : in std_logic;
-         b : in std_logic;
-         F : out std_logic);
-    end component;
-
-component not_gate
-    port(a : in std_logic;
-         b : out std_logic);
-    end component;
-
-signal l : std_logic;
-signal m : std_logic;
-signal n : std_logic;
-signal o : std_logic;
-signal p : std_logic;
-
 begin
-nand_1 : nand_gate
-    port map (a => data_in,
-              b => clk,
-              F => m);
-
-nand_2 : nand_gate
-    port map (a => l,
-              b => clk,
-              F => n);
-              
-nand_3 : nand_gate
-    port map (a => m,
-              b => p,
-              F => o);
-              
-nand_4 : nand_gate
-    port map (a => o,
-              b => n,
-              F => p);
-              
---nand_5 : nand_gate
---    port map (a => o,
---              b => o,
---              F => data_out);
-        
-not_1 : not_gate
-    port map(a => data_in,
-             b => l);
-
-data_out <= o;
+process(clk, reset)
+    begin
+        if reset = '1' then
+            data_out <= '0';
+        elsif clk'event and clk = '1' then
+            data_out <= data_in;
+        end if;
+    end process;
 
 end Behavioral;
