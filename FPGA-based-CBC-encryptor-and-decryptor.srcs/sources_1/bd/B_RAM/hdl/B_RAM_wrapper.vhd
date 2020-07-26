@@ -1,7 +1,7 @@
 --Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
---Date        : Thu Jul 16 20:36:53 2020
+--Date        : Sun Jul 26 18:28:49 2020
 --Host        : DESKTOP-R5L8HNJ running 64-bit major release  (build 9200)
 --Command     : generate_target B_RAM_wrapper.bd
 --Design      : B_RAM_wrapper
