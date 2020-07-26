@@ -69,8 +69,8 @@ component multiplexer_2_way
 end component;
 
 component not_gate
-    Port ( n_input : in STD_LOGIC;
-           n_output : out STD_LOGIC);
+    Port ( a : in STD_LOGIC;
+           b : out STD_LOGIC);
 end component;
 
 signal not_data_reg : STD_LOGIC;
@@ -86,8 +86,8 @@ signal output_reg_out : STD_LOGIC_VECTOR (7 downto 0);
 begin
 
 not_clock : not_gate
-    Port map ( n_input => clock,
-               n_output => not_data_reg);
+    Port map ( a => clock,
+               b => not_data_reg);
 
 input_register_a : register_8bit
     Port map ( data_in => d_in,

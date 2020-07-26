@@ -46,7 +46,7 @@ component decryptor is
            selector : in STD_LOGIC);
 end component;
 
-signal clock : STD_LOGIC := '0';
+signal clock : STD_LOGIC := '1';
 signal reset : STD_LOGIC;
 signal selector : STD_LOGIC;
 signal key_in : STD_LOGIC_VECTOR (7 downto 0);
@@ -86,15 +86,14 @@ stimuli : process
         key_in <= "11011110";
         reset <= '0';
         selector <= '0';
-        wait for 20ns;
+        --wait for 20ns;
         --reset <= '0';
         d_in <= "11001100";
         wait for 20 ns;
         d_in <= "10001111";
-        wait for 10ns;
-        selector <= '1';
-        wait for 10ns;
+        wait for 20ns;
         d_in <= "10011101";
+        selector <= '1';
         wait for 20ns;
         d_in <= "01011110";
         wait for 20ns;
