@@ -1,7 +1,7 @@
 --Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
---Date        : Mon Jul 27 01:09:54 2020
+--Date        : Mon Jul 27 19:39:29 2020
 --Host        : DESKTOP-R5L8HNJ running 64-bit major release  (build 9200)
 --Command     : generate_target Dual_B_RAM.bd
 --Design      : Dual_B_RAM
