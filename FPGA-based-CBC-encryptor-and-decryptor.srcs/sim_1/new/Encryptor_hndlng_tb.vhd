@@ -77,7 +77,7 @@ clock <= not clock after 10ns;
 stimuli : process
     begin
     enable <= '0';
-    wait for 20 ns;
+    wait for 40 ns;
     key <= "11011110";
     enable <= '1';
     wait for 40 ns;
@@ -92,8 +92,8 @@ stimuli : process
     data_in <= "10011010";
     wait for 20ns;
     data_in <= "10111100";
-    wait for 40ns;
-    enable <= '0';
+    --wait for 40ns;
+    --enable <= '0';
     wait;
     end process;
 

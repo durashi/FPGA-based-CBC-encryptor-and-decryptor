@@ -97,11 +97,18 @@ component not_gate
          b : out std_logic);
 end component;
 
+component count_130 is
+    Port ( clock : in STD_LOGIC;
+           enable : in STD_LOGIC;
+           enable_signal : out STD_LOGIC);
+end component;
+
 --signal select_mul : std_logic;
 signal wen_a_b : std_logic;
 signal wen_b_c : std_logic;
 signal wen_c_d : std_logic;
 signal wen : std_logic;
+signal enable_signal : std_logic;
 signal clock_signal : std_logic;
 signal reset_signal : std_logic;
 signal input_a_b : STD_LOGIC_VECTOR (7 downto 0);
@@ -153,7 +160,7 @@ reg_d : register_8bit
                reset => reset_signal);
               
 dff_a : d_flipflop
-    port map (data_in => enable,
+    port map (data_in => enable_signal,
               data_out => wen_a_b,
               clk => clock_signal,
               reset => reset_signal);
@@ -177,14 +184,19 @@ dff_d : d_flipflop
               reset => reset_signal);
 
 not_gate_en : not_gate
-    port map (a => enable,
+    port map (a => enable_signal,
               b => reset_signal);
 
 and_gate_clock : and_gate
     port map(a => clock,
-             b => enable,
+             b => enable_signal,
              F => clock_signal);
+             
+en_counter : count_130
+    port map ( clock => clock,
+               enable => enable,
+               enable_signal => enable_signal);
 
-read_enable <= enable;
+read_enable <= enable_signal;
 write_enable <= wen;
 end Behavioral;
