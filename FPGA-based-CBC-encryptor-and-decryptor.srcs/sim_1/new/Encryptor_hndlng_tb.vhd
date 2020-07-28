@@ -46,7 +46,6 @@ component encrypt_handler is
            read_enable : out STD_LOGIC;
            write_enable : out STD_LOGIC;
            enable : in STD_LOGIC;
-           reset : in STD_LOGIC;
            clock : in STD_LOGIC);
 end component;
 
@@ -59,7 +58,7 @@ signal read_enable : STD_LOGIC;
 signal write_enable : STD_LOGIC;
 signal enable : STD_LOGIC;
 signal clock : STD_LOGIC:= '1';
-signal reset : STD_LOGIC;
+
 
 begin
 uut_1 : encrypt_handler
@@ -71,19 +70,17 @@ uut_1 : encrypt_handler
                read_enable => read_enable,
                write_enable => write_enable,
                enable => enable,
-               clock => clock,
-               reset => reset);
+               clock => clock);
                
 clock <= not clock after 10ns;
 
 stimuli : process
     begin
     enable <= '0';
-    reset <= '1';
     wait for 20 ns;
     key <= "11011110";
-    reset <= '0';
     enable <= '1';
+    wait for 40 ns;
     data_in <= "00010010";
     wait for 20 ns;
     data_in <= "00110100";
@@ -95,7 +92,7 @@ stimuli : process
     data_in <= "10011010";
     wait for 20ns;
     data_in <= "10111100";
-    wait for 20ns;
+    wait for 40ns;
     enable <= '0';
     wait;
     end process;
