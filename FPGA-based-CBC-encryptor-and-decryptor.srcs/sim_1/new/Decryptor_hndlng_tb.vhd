@@ -96,8 +96,8 @@ stimuli : process
     data_in <= "01001100";
     wait for 20ns;
     data_in <= "00001111";
-    wait for 20ns;
-    enable <= '0';
+--    wait for 20ns;
+--    enable <= '0';
     wait;
     end process;
 
