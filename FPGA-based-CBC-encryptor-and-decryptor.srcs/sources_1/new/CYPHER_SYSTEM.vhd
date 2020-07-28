@@ -38,6 +38,7 @@ entity CYPHER_SYSTEM is
            uart_rx_rst : in STD_LOGIC;
            uart_tx_rst : in STD_LOGIC;
            rx_serial : in STD_LOGIC;
+           tx_dv : in STD_LOGIC;
            tx_serial : out STD_LOGIC;
            tx_done : out STD_LOGIC;
            key_in : in STD_LOGIC_VECTOR (7 downto 0));
@@ -132,6 +133,13 @@ component or_gate is
            F : out STD_LOGIC);
 end component;
 
+component uatr_tx_byte_counter is
+    Port ( clock : in STD_LOGIC;
+           enable : in STD_LOGIC;
+           tx_done : in STD_LOGIC;
+           enable_signal : out STD_LOGIC);
+end component;
+
 -------------------------------------------------------------------------
 signal common_clock : STD_LOGIC;
 
@@ -168,6 +176,8 @@ signal uart_rx_byte : STD_LOGIC_VECTOR (7 downto 0);
 signal uart_rx_addr : STD_LOGIC_VECTOR (7 downto 0);
 
 signal uart_tx_enable : STD_LOGIC;
+signal uart_tx_done : STD_LOGIC := '0';
+signal uart_tx_dv : STD_LOGIC := '0';
 signal uart_tx_byte : STD_LOGIC_VECTOR (7 downto 0);
 signal uart_tx_addr : STD_LOGIC_VECTOR (7 downto 0);
 
@@ -195,15 +205,21 @@ uart_rx_module: UART_RX_handeller
                clock => clock);
 
 uart_tx_module: UART_TX_handeller
-    port map ( TX_DV => in STD_LOGIC,
+    port map ( TX_DV => uart_tx_dv,
                TX_Byte => port_b_data_out,
                TX_Active => uart_tx_enable,
                TX_Serial => tx_serial,
-               TX_Done => tx_done,
+               TX_Done => uart_tx_done,
                addr_to_read => uart_tx_addr,       
                reset => uart_tx_rst,
                clock => clock);
-           
+
+uart_counter: uatr_tx_byte_counter
+    port map ( clock => clock,
+               enable => tx_dv,
+               tx_done => uart_tx_done,
+               enable_signal => uart_tx_dv);
+                             
 encrypt_hndlr : encrypt_handler
     port map ( data_in => enc_data_in,
                data_out => enc_data_out,
@@ -263,6 +279,7 @@ we_or:  or_gate
                b => dec_write_enable,
                F => port_b_write_enable(0));
 
+tx_done <= uart_tx_done;
 port_a_write_enable(0) <= uart_rx_enable;
 mode_selector(0) <= Encrypt;
 mode_selector(1) <= Decrypt;
