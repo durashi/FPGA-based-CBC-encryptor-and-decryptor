@@ -89,13 +89,13 @@ begin
   -- Keeps the UART Receive input high (default) when
   -- UART transmitter is not active
   w_UART_Data <= w_TX_Serial when w_TX_Active = '1' else '1';
- 
+  r_RX_Serial <= w_UART_Data;
   r_Clock <= not r_Clock after c_CLK_PERIOD/2;
    
   process is
   begin
   
-    -- Tell the UART to send a command.  
+    -- Tell the UART to send a command.
     wait until rising_edge(r_Clock);
     wait until rising_edge(r_Clock);
     r_TX_DV   <= '1';
@@ -105,6 +105,16 @@ begin
     wait for 100us;
     r_TX_DV   <= '1';
     r_TX_Byte <= X"37";
+    wait until rising_edge(r_Clock);
+    r_TX_DV   <= '0';    
+    wait for 100us;
+    r_TX_DV   <= '1';
+    r_TX_Byte <= X"13";
+    wait until rising_edge(r_Clock);
+    r_TX_DV   <= '0'; 
+    wait for 100us;   
+    r_TX_DV   <= '1';
+    r_TX_Byte <= X"ab";
     wait until rising_edge(r_Clock);
     r_TX_DV   <= '0';
     
