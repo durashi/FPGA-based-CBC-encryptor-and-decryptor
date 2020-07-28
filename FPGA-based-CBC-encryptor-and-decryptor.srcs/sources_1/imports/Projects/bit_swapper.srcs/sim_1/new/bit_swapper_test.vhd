@@ -66,6 +66,6 @@ stimuli : process
                       Clk <= '1';     
                       byte_in <= "00001111";                
                       wait;
-                  end process;              
+                  end process;
 
 end Behavioral;

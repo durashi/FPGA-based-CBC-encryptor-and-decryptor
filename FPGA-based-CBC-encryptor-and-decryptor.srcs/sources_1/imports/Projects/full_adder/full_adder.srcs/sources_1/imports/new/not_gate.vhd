@@ -39,6 +39,6 @@ end not_gate;
 architecture Behavioral of not_gate is
 
 begin
-b<= not a;
+b <= not a;
 
 end Behavioral;
