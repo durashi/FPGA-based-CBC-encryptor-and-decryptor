@@ -44,7 +44,7 @@ architecture Behavioral of UART_RX_handeller is
 
 component UART_RX is
   generic (
-    g_CLKS_PER_BIT : integer := 217     
+    g_CLKS_PER_BIT : integer := 10416     
     );
   port (
     i_Clk       : in  std_logic;
@@ -57,6 +57,7 @@ end component;
 component uart_up_counter is
     Port ( enable : in STD_LOGIC;
            reset : in STD_LOGIC;
+           clock : in STD_LOGIC;
            counter_out : out STD_LOGIC_VECTOR (7 downto 0));
 end component;
 
@@ -73,6 +74,7 @@ uart_rx_module : UART_RX
 up_counter : uart_up_counter
     port map (enable => en,
               reset => reset,
+              clock => clock,
               counter_out => addr_to_write);
 
 rx_enable <= en;
