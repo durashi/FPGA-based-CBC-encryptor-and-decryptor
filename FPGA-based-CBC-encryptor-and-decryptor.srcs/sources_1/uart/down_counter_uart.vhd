@@ -34,6 +34,7 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 entity down_counter_uart is
     Port ( enable : in STD_LOGIC;
            reset : in STD_LOGIC;
+           clock : in STD_LOGIC;
            counter_out : out STD_LOGIC_VECTOR (7 downto 0));
 end down_counter_uart;
 
@@ -41,11 +42,11 @@ architecture Behavioral of down_counter_uart is
     signal count :  STD_LOGIC_VECTOR (7 downto 0) := "11111111";
     
 begin
-    process (enable,reset)
+    process (enable,reset,clock)
     begin
         if reset = '1' then
             count <= "11111111";
-        elsif enable = '1' then
+        elsif rising_edge(clock) and enable = '1' then
             if (count = "10000000") then
                 count <= "11111111";
             else

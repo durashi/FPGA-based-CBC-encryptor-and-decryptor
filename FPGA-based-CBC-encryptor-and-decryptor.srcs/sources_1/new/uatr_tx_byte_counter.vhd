@@ -40,8 +40,8 @@ end uatr_tx_byte_counter;
 
 architecture Behavioral of uatr_tx_byte_counter is
 
-constant c_BIT_PERIOD : time := 100 us;
-constant c_CLK_PERIOD : time := 40 ns;
+--constant c_BIT_PERIOD : time := 100 us;
+--constant c_CLK_PERIOD : time := 40 ns;
 signal out_sig:  STD_LOGIC := '0';
 
 begin

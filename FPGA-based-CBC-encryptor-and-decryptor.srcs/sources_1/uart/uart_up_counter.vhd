@@ -33,7 +33,8 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 --use UNISIM.VComponents.all;
 
 entity uart_up_counter is
-    Port ( enable : in STD_LOGIC;
+    Port ( clock : in STD_LOGIC;
+           enable : in STD_LOGIC;
            reset : in STD_LOGIC;
            counter_out : out STD_LOGIC_VECTOR (7 downto 0));
 end uart_up_counter;
@@ -42,11 +43,11 @@ architecture Behavioral of uart_up_counter is
     signal count :  STD_LOGIC_VECTOR (7 downto 0) := "00000000";
     
 begin
-    process (enable,reset)
+    process (enable,reset, clock)
     begin
         if reset = '1' then
             count <= "00000000";
-        elsif enable = '1' then
+        elsif rising_edge(clock) and enable = '1' then
             if (count = "01111111") then
                 count <= "00000000";
             else

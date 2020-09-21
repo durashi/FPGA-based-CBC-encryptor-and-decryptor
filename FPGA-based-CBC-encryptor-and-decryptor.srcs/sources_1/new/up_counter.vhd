@@ -45,7 +45,7 @@ begin
     process (clock,reset)
     begin
         if reset = '1' then
-            count <= "00000000";
+            count <= "01111111";
         elsif (clock 'event and clock = '1') then
             if (count = "01111111") then
                 count <= "00000000";

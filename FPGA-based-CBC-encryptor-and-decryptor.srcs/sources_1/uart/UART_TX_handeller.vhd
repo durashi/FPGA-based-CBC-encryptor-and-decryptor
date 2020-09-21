@@ -59,7 +59,8 @@ component UART_TX is
 end component;
 
 component down_counter_uart is
-    Port ( enable : in STD_LOGIC;
+    Port ( clock : in STD_LOGIC;
+           enable : in STD_LOGIC;
            reset : in STD_LOGIC;
            counter_out : out STD_LOGIC_VECTOR (7 downto 0));
 end component;
@@ -77,7 +78,8 @@ uart_tx_module: UART_TX
               o_TX_Done => en);
               
 down_counter : down_counter_uart
-    port map (enable => en,
+    port map (clock => clock,
+              enable => en,
               reset => reset,
               counter_out => addr_to_read);
 
