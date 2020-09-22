@@ -15,7 +15,7 @@
 -- Revision:
 -- Revision 0.01 - File Created
 -- Additional Comments:
--- 
+-- This module is responsble for control the decrypt module properly with controling input and output signals.
 ----------------------------------------------------------------------------------
 
 
@@ -46,6 +46,7 @@ end decrypt_handler;
 
 architecture Behavioral of decrypt_handler is
 
+-- basic decryptor module.
 component decryptor is
     Port ( key_in : in STD_LOGIC_VECTOR (7 downto 0);
            d_in : in STD_LOGIC_VECTOR (7 downto 0);
@@ -55,24 +56,28 @@ component decryptor is
            selector : in STD_LOGIC);
 end component;
 
+-- up counter is used for selecting the proper address to read data from the block memory.
 component up_counter is
     Port ( clock : in STD_LOGIC;
            reset : in STD_LOGIC;
            counter_out : out STD_LOGIC_VECTOR (7 downto 0));
 end component;
 
+-- down counter is used for selecting the propoer address to write decrypted data to the block memory.
 component down_counter is
     Port ( clock : in STD_LOGIC;
            reset : in STD_LOGIC;
            counter_out : out STD_LOGIC_VECTOR (7 downto 0));
 end component;
 
+-- data register for store temporary data.
 component register_8bit
     Port ( data_in : in STD_LOGIC_VECTOR (7 downto 0);
            data_out : out STD_LOGIC_VECTOR (7 downto 0);
            clk, reset : in STD_LOGIC);
 end component;
 
+-- data flipflop for store temporary signals.
 component d_flipflop is
     Port ( data_in : in STD_LOGIC;
            data_out : out STD_LOGIC;
@@ -97,6 +102,7 @@ component not_gate
          b : out std_logic);
 end component;
 
+-- count_129 used for keep up the enable signal until operation is done.
 component count_129 is
     Port ( clock : in STD_LOGIC;
            enable : in STD_LOGIC;

@@ -15,7 +15,7 @@
 -- Revision:
 -- Revision 0.01 - File Created
 -- Additional Comments:
--- 
+-- This is a test module for chech the functionality of the Encrypter with Dual port BRAM.
 ----------------------------------------------------------------------------------
 
 

@@ -15,7 +15,8 @@
 -- Revision:
 -- Revision 0.01 - File Created
 -- Additional Comments:
--- 
+-- This counter will update counter value until 130.
+-- This module is used as a component of Encrypt handler.
 ----------------------------------------------------------------------------------
 
 
@@ -53,14 +54,14 @@ begin
             out_sig <= '0';
         elsif (sig_flag = '1' and enable = '1') then
             out_sig <= '1';
-            if (clock 'event and clock = '1' and enable = '1') then
+            if (clock 'event and clock = '1' and enable = '1') then 
                 out_sig <= '1';
-                if (count = "10000010") then
+                if (count = "10000010") then -- when counter value equals to 130 then it should hault and set output signal as 0.
                     out_sig <= '0';
                     count <= "10000010";
                     sig_flag <= '0';
                 else
-                    count <= count + '1';
+                    count <= count + '1'; --keep increasing the counter
                 end if;
             end if;
         end if;
