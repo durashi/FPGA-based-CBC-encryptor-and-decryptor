@@ -15,7 +15,7 @@
 -- Revision:
 -- Revision 0.01 - File Created
 -- Additional Comments:
--- 
+-- Down counter is counting downward from 255 to 128 and then resets to 255
 ----------------------------------------------------------------------------------
 
 

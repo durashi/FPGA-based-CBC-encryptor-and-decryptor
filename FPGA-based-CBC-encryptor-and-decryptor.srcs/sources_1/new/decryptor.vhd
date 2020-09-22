@@ -15,7 +15,7 @@
 -- Revision:
 -- Revision 0.01 - File Created
 -- Additional Comments:
--- 
+-- This is the basic decryptor module. This module can decrypt input data with the key
 ----------------------------------------------------------------------------------
 
 
@@ -42,25 +42,28 @@ end decryptor;
 
 architecture Behavioral of decryptor is
 
-
+-- XOR gate is used for xor input data with the key
 component xor_gate_8_bit
     Port ( a : in STD_LOGIC_VECTOR (7 downto 0);
            b : in STD_LOGIC_VECTOR (7 downto 0);
            F : out STD_LOGIC_VECTOR (7 downto 0));
 end component;
 
+-- register is used for store temporary data
 component register_8bit
     Port ( data_in : in STD_LOGIC_VECTOR (7 downto 0);
            data_out : out STD_LOGIC_VECTOR (7 downto 0);
            clk, reset : in STD_LOGIC);
 end component;
 
+-- Bit swapper swaps the two nibbles of the data byte
 component bit_swapper
     Port ( byte_in : in STD_LOGIC_VECTOR (7 downto 0);
             Clk : in STD_LOGIC;
             byte_out : out STD_LOGIC_VECTOR (7 downto 0));
 end component;
 
+-- Multiplexer is used for select key or previousely decrypted data
 component multiplexer_2_way
     Port ( a_in : in STD_LOGIC_VECTOR (7 downto 0);
            b_in : in STD_LOGIC_VECTOR (7 downto 0);

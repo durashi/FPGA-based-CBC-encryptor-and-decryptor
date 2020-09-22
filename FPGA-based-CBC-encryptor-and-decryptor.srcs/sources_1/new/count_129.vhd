@@ -15,7 +15,8 @@
 -- Revision:
 -- Revision 0.01 - File Created
 -- Additional Comments:
--- 
+-- This counter will update counter value until 129.
+-- This module is used as a component of Decrypter handler.
 ----------------------------------------------------------------------------------
 
 
@@ -38,6 +39,7 @@ entity count_129 is
            enable_signal : out STD_LOGIC);
 end count_129;
 
+
 architecture Behavioral of count_129 is
     signal count :  STD_LOGIC_VECTOR (7 downto 0) := "00000000";
     signal out_sig:  STD_LOGIC := '0';
@@ -56,12 +58,12 @@ begin
             out_sig <= '1';
             if (clock 'event and clock = '1' and enable = '1') then
                 out_sig <= '1';
-                if (count = "10000001") then
+                if (count = "10000001") then -- when counter value equals to 129 then it should hault and set output signal as 0.
                     out_sig <= '0';
                     count <= "10000001";
                     sig_flag <= '0';
                 else
-                    count <= count + '1';
+                    count <= count + '1'; --keep increasing the counter
                 end if;
             end if;
         end if;

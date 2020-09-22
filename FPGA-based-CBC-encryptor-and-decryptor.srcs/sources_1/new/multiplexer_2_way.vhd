@@ -15,7 +15,7 @@
 -- Revision:
 -- Revision 0.01 - File Created
 -- Additional Comments:
--- 
+-- 2 to 1 8bit multiplexer
 ----------------------------------------------------------------------------------
 
 

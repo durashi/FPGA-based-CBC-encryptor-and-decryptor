@@ -15,8 +15,10 @@
 -- Revision:
 -- Revision 0.01 - File Created
 -- Additional Comments:
--- 
-----------------------------------------------------------------------------------
+-- This is the main module of the project.
+-- Simply dual-port Block memory is responsible for store data received through UART receiver. The stored data can be send to the computer via UART transmitter.
+-- Encrypter module and decrypter module are directly connected with the block RAM and they can be used via giving an enable signal from switches of the basys 3 board.
+-- The results of the encryption and decryption will be stored in the block RAM and we can get those results in to the computer.
 
 
 library IEEE;
