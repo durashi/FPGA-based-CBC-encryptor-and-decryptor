@@ -49,6 +49,7 @@ end CYPHER_SYSTEM;
 
 architecture Behavioral of CYPHER_SYSTEM is
 
+-- The module which is responsible for handle encryption functionality.
 component encrypt_handler is
     Port ( data_in : in STD_LOGIC_VECTOR (7 downto 0);
            data_out : out STD_LOGIC_VECTOR (7 downto 0);
@@ -62,6 +63,7 @@ component encrypt_handler is
            clock : in STD_LOGIC);
 end component;
 
+-- The moudule which is responsible for handle decryption functionality.
 component decrypt_handler is
     Port ( data_in : in STD_LOGIC_VECTOR (7 downto 0);
            data_out : out STD_LOGIC_VECTOR (7 downto 0);
@@ -75,6 +77,7 @@ component decrypt_handler is
            clock : in STD_LOGIC);
 end component;
 
+-- Handle UART transmission.
 component UART_RX_handeller is
     Port ( rx_serial : in STD_LOGIC;
            rx_enable : out STD_LOGIC;
@@ -84,6 +87,7 @@ component UART_RX_handeller is
            clock : in STD_LOGIC);
 end component;
 
+-- Handle UART recieve
 component UART_TX_handeller is
     Port ( TX_DV : in STD_LOGIC;
            TX_Byte : in STD_LOGIC_VECTOR (7 downto 0);
@@ -95,6 +99,7 @@ component UART_TX_handeller is
            clock : in STD_LOGIC);
 end component;
 
+-- Multiplexers are used for controll data flow
 component multi_4_to_1 is
     Port ( a_in : in STD_LOGIC_VECTOR (7 downto 0);
            b_in : in STD_LOGIC_VECTOR (7 downto 0);
@@ -113,6 +118,7 @@ component multi_4_to_1_1bit is
            selector : in STD_LOGIC_VECTOR (1 downto 0));
 end component;
 
+-- Wrapper is used for control BRAM
 component Dual_B_RAM_wrapper
     port (
       BRAM_PORTA_0_addr : in STD_LOGIC_VECTOR ( 7 downto 0 );
@@ -136,6 +142,7 @@ component or_gate is
            F : out STD_LOGIC);
 end component;
 
+-- Byte coounter is used for select address to read and send via UART
 component uatr_tx_byte_counter is
     Port ( clock : in STD_LOGIC;
            enable : in STD_LOGIC;
@@ -143,6 +150,7 @@ component uatr_tx_byte_counter is
            enable_signal : out STD_LOGIC);
 end component;
 
+-- TX controller is responsible for controll UART transmission
 component UART_TX_CTRL is
     Port ( SEND : in  STD_LOGIC;
            DATA : in  STD_LOGIC_VECTOR (7 downto 0);
