@@ -31,6 +31,8 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
+-- Integrate counter tat counts from 255 to 128 addresses of BRAM to be read from the uart transmitter
+
 entity UART_TX_handeller is
     Port ( TX_DV : in STD_LOGIC;
            TX_Byte : in STD_LOGIC_VECTOR (7 downto 0);
@@ -76,7 +78,8 @@ uart_tx_module: UART_TX
               o_TX_Active => TX_Active,
               o_TX_Serial => TX_Serial,
               o_TX_Done => en);
-              
+
+-- countes from 255 to 128              
 down_counter : down_counter_uart
     port map (clock => clock,
               enable => en,

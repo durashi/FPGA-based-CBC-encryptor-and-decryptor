@@ -31,6 +31,8 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
+-- Count from 255 to 128 downwards and give the output in binary as the address for BRAM
+
 entity down_counter_uart is
     Port ( enable : in STD_LOGIC;
            reset : in STD_LOGIC;
@@ -39,16 +41,16 @@ entity down_counter_uart is
 end down_counter_uart;
 
 architecture Behavioral of down_counter_uart is
-    signal count :  STD_LOGIC_VECTOR (7 downto 0) := "11111111";
+    signal count :  STD_LOGIC_VECTOR (7 downto 0) := "11111111";  --initialize the counter
     
 begin
     process (enable,reset,clock)
     begin
         if reset = '1' then
-            count <= "11111111";
+            count <= "11111111";  -- initialize the counter
         elsif rising_edge(clock) and enable = '1' then
             if (count = "10000000") then
-                count <= "11111111";
+                count <= "11111111"; --skip to 255 again after complete 128
             else
                 count <= count - '1';
             end if;

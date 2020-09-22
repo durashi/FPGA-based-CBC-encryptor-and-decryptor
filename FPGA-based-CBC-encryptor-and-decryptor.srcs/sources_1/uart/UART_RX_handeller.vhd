@@ -31,6 +31,8 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
+-- Connect counter that counts from 0 to 127 BRAM addresses, that recieved UART data bytes are needed to store
+
 entity UART_RX_handeller is
     Port ( rx_serial : in STD_LOGIC;
            rx_enable : out STD_LOGIC;
@@ -44,16 +46,17 @@ architecture Behavioral of UART_RX_handeller is
 
 component UART_RX is
   generic (
-    g_CLKS_PER_BIT : integer := 10416     
+    g_CLKS_PER_BIT : integer := 10416  -- Baud rate = 9600, Inbuilt clock = 100MHz, clocks per bit = 100M/9600 = 10416.67   
     );
   port (
     i_Clk       : in  std_logic;
-    i_RX_Serial : in  std_logic;
-    o_RX_DV     : out std_logic;
-    o_RX_Byte   : out std_logic_vector(7 downto 0)
+    i_RX_Serial : in  std_logic; -- recieved bit stream
+    o_RX_DV     : out std_logic;  --data valid flag
+    o_RX_Byte   : out std_logic_vector(7 downto 0) --extracted bytes from recieved bit stream
     );
 end component;
 
+-- counter from 0 to 127
 component uart_up_counter is
     Port ( enable : in STD_LOGIC;
            reset : in STD_LOGIC;
@@ -71,6 +74,7 @@ uart_rx_module : UART_RX
               o_RX_DV => en,
               o_RX_Byte => rx_byte);
 
+-- enable the counter when the data valid flag rise for 1 clock cycle
 up_counter : uart_up_counter
     port map (enable => en,
               reset => reset,

@@ -31,18 +31,19 @@ use ieee.numeric_std.all;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
+-- convert bytes into bit stream
 
 entity UART_TX is
   generic (
-    g_CLKS_PER_BIT : integer := 10416     
+    g_CLKS_PER_BIT : integer := 10416  -- Baud rate = 9600, Inbuilt clock = 100MHz, clocks per bit = 100M/9600 = 10416.67    
     );
   port (
-    i_Clk       : in  std_logic;
-    i_TX_DV     : in  std_logic;
-    i_TX_Byte   : in  std_logic_vector(7 downto 0);
-    o_TX_Active : out std_logic;
-    o_TX_Serial : out std_logic;
-    o_TX_Done   : out std_logic
+    i_Clk       : in  std_logic;  --clock
+    i_TX_DV     : in  std_logic;  --recieved data bytes valid signal
+    i_TX_Byte   : in  std_logic_vector(7 downto 0);  --recieved byte
+    o_TX_Active : out std_logic;  --active while 
+    o_TX_Serial : out std_logic;  --corresponding bit stream for the byte
+    o_TX_Done   : out std_logic   --drive high after send the byte
     );
 end UART_TX;
 
@@ -69,7 +70,7 @@ begin
 
         when s_Idle =>
           o_TX_Active <= '0';
-          o_TX_Serial <= '1';         -- Drive Line High for Idle
+          o_TX_Serial <= '1';  -- Drive Line High for Idle
           r_TX_Done   <= '0';
           r_Clk_Count <= 0;
           r_Bit_Index <= 0;

@@ -31,15 +31,17 @@ use ieee.numeric_std.all;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
+-- Break the recieved serial bit stream in to bytes
+
 entity UART_RX is
   generic (
-    g_CLKS_PER_BIT : integer := 10416
+    g_CLKS_PER_BIT : integer := 10416  -- Baud rate = 9600, Inbuilt clock = 100MHz, clocks per bit = 100M/9600 = 10416.67   
     );
   port (
-    i_Clk       : in  std_logic;
-    i_RX_Serial : in  std_logic;
-    o_RX_DV     : out std_logic;
-    o_RX_Byte   : out std_logic_vector(7 downto 0)
+    i_Clk       : in  std_logic;  --clock
+    i_RX_Serial : in  std_logic;  --recieved bit stream
+    o_RX_DV     : out std_logic;  --data byte valid signal
+    o_RX_Byte   : out std_logic_vector(7 downto 0) --recieved bytes from bit stream
     );
 end UART_RX;
 
@@ -119,7 +121,7 @@ begin
             r_Clk_Count <= r_Clk_Count + 1;
             r_SM_Main   <= s_RX_Stop_Bit;
           else
-            r_RX_DV     <= '1';
+            r_RX_DV     <= '1';  -- set data valid flag to 1 indicating RX_Byte is valid
             r_Clk_Count <= 0;
             r_SM_Main   <= s_Cleanup;
           end if;
@@ -128,7 +130,7 @@ begin
         -- Stay here 1 clock
         when s_Cleanup =>
           r_SM_Main <= s_Idle;
-          r_RX_DV   <= '0';
+          r_RX_DV   <= '0';  -- set data valid flag to 0
 
             
         when others =>
